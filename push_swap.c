@@ -6,45 +6,69 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:10:14 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/08/15 18:05:53 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	prepare_stack(int len, char *argv[], int *stack)
+void	push_swap(int argc, char *argv[])
 {
-	int	flag;
+	t_list	*a;
+	int		flag;
 
-	flag = check_args(len, argv, stack);
-	if (flag == FAIL)
-		return (FAIL);
+	a = NULL;
+
+	if (argc == 1)
+		return ;
+	flag = prepare_a(argc, argv, a);
+	if (flag == SUCCESS)
+	{
+		ft_printf("OK\n");
+	}
 	else
-		return (SUCCESS);
+		return ;//error
 }
 
-static int	check_args(int len, char *argv[], int *stack)
-{
-	int			i;
-	int			j;
-	long long	n;
+// int	prepare_stack(int len, char *argv[], int *stack)
+// {
+// 	int	flag;
 
+// 	flag = check_args(len, argv, stack);
+// 	if (flag == FAIL)
+// 		return (FAIL);
+// 	else
+// 		return (SUCCESS);
+// }
+
+static int	prepare_a(int len, char *argv[], t_list *a)
+{
+	unsigned int	i;
+	long long		n;
+	unsigned int	*check_double;
+
+	check_double = ft_calloc(UINT_MAX + 1ll, sizeof(char));
+	if (check_double == NULL)
+		return (FAIL);
 	i = 0;
 	while (++i < len)
 	{
 		n = to_int(argv[i]);
 		if (n == NOT_INT)
-			free_and_exit(stack);
-		stack[i - 1] = n;
+		{
+			free(check_double);
+			return (FAIL);
+		}
+		if (check_double[(unsigned int)n] == 0)
+			check_double[(unsigned int)n] = 1;
+		else
+		{
+			free(check_double);
+			return (FAIL);
+		}
+		ft_lstadd_back(&a, ft_lstnew(&n));
 	}
-	i = -1;
-	while (++i < len - 1)
-	{
-		j = i;
-		while (++j < len)
-			if (stack[i] == stack[j])
-				free_and_exit(stack);
-	}
+	free(check_double);
 	return (SUCCESS);
 }
 
@@ -75,10 +99,10 @@ static long long	to_int(const char *str)
 	return (number * sign);
 }
 
-void	free_and_exit(int *stack)
-{
-	ft_putendl_fd("Error", 2);
-	free(stack);
-	stack = NULL;
-	exit(1);
-}
+// void	free_and_exit(int *stack)
+// {
+// 	ft_putendl_fd("Error", 2);
+// 	free(stack);
+// 	stack = NULL;
+// 	exit(1);
+// }

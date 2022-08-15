@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:15:57 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/08/15 16:20:52 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,8 @@
 
 int main(int argc, char *argv[])
 {
-	int	*stack;		//mallocとポインタ？ダブル？
-
-	stack = malloc(STACK_SIZE * sizeof(int));
-	if (stack == NULL)
-		return (1);
-	
-	prepare_stack(argc, argv, stack);
-	ft_printf("%d %d %d", stack[0], stack[1], stack[2]);
-
-
+	push_swap(argc, argv);
+	// ft_printf("%d %d %d", stack[0], stack[1], stack[2]);
 	
 	return (0);
 }
