@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/08/15 18:05:53 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/02 23:18:13 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,52 @@
 
 void	push_swap(int argc, char *argv[])
 {
-	t_list	*a;
+	t_dlist	*a;
 	int		flag;
-
-	a = NULL;
 
 	if (argc == 1)
 		return ;
-	flag = prepare_a(argc, argv, a);
+	a = NULL;
+	flag = prepare_a(argc, argv, &a);
 	if (flag == SUCCESS)
 	{
-		ft_printf("OK\n");
+		// while (a->value != NULL)
+		// {
+		// 	printf("%d\n", (*a->value));
+		// 	a = a->next;
+		// }
+		a = a->prev->prev;
+		while(a->value != NULL)
+		{
+			printf("%d\n", *(a->value));
+			a = a->prev;
+		}
 	}
 	else
+	{
+		ft_printf("ERROR\n");
 		return ;//error
+	}
 }
 
-// int	prepare_stack(int len, char *argv[], int *stack)
-// {
-// 	int	flag;
-
-// 	flag = check_args(len, argv, stack);
-// 	if (flag == FAIL)
-// 		return (FAIL);
-// 	else
-// 		return (SUCCESS);
-// }
-
-static int	prepare_a(int len, char *argv[], t_list *a)
+static int	prepare_a(int len, char *argv[], t_dlist **a)
 {
 	unsigned int	i;
 	long long		n;
-	unsigned int	*check_double;
 
-	check_double = ft_calloc(UINT_MAX + 1ll, sizeof(char));
-	if (check_double == NULL)
-		return (FAIL);
 	i = 0;
 	while (++i < len)
 	{
 		n = to_int(argv[i]);
 		if (n == NOT_INT)
 		{
-			free(check_double);
 			return (FAIL);
 		}
-		if (check_double[(unsigned int)n] == 0)
-			check_double[(unsigned int)n] = 1;
 		else
 		{
-			free(check_double);
-			return (FAIL);
+			ft_dlstadd_back(a, ft_dlstnew((int)n));
 		}
-		ft_lstadd_back(&a, ft_lstnew(&n));
 	}
-	free(check_double);
 	return (SUCCESS);
 }
 
