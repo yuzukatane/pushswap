@@ -6,19 +6,19 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 16:34:05 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/02 23:12:19 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/03 19:14:44 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
+void	dlstadd_back(t_dlist **lst, t_dlist *new)
 {
 	t_dlist	*last;
 
 	if (*lst == NULL)
 	{
-		last = ft_dlstnew(0);
+		last = dlstnew(0);
 		last->value = NULL;
 		*lst = new;
 		(*lst)->next = last;
@@ -29,13 +29,13 @@ void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
 	else
 	{
 		(*lst)->prev->prev->next = new;
+		new->prev = (*lst)->prev->prev;
 		(*lst)->prev->prev = new;
-		(*new).next = (*lst)->prev;
-		(*new).prev = *lst;
+		new->next = (*lst)->prev;
 	}
 }
 
-t_dlist	*ft_dlstnew(int value)
+t_dlist	*dlstnew(int value)
 {
 	t_dlist	*new;
 
@@ -48,5 +48,20 @@ t_dlist	*ft_dlstnew(int value)
 	*(new->value) = value;
 	new->next = new;
 	new->prev = new;
+	new->index = -1;
 	return (new);
+}
+
+void	dlstclear(t_dlist **lst)
+{
+	t_dlist	*tmp;
+
+	while ((*lst)->value != NULL)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->value);
+		free(*lst);
+		*lst = tmp;
+	}
+	free(*lst);
 }

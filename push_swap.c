@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/02 23:18:13 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/03 19:16:12 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,31 @@ void	push_swap(int argc, char *argv[])
 	if (argc == 1)
 		return ;
 	a = NULL;
-	flag = prepare_a(argc, argv, &a);
+	flag = check_args(argc, argv, &a);
 	if (flag == SUCCESS)
 	{
-		// while (a->value != NULL)
-		// {
-		// 	printf("%d\n", (*a->value));
-		// 	a = a->next;
-		// }
-		a = a->prev->prev;
-		while(a->value != NULL)
+		while (a->value != NULL)
 		{
-			printf("%d\n", *(a->value));
-			a = a->prev;
+			printf("%d\n", (*a->value));
+			a = a->next;
 		}
+
+		// a = a->prev->prev;
+		// while(a->value != NULL)
+		// {
+		// 	printf("%d\n", *(a->value));
+		// 	a = a->prev;
+		// }
 	}
 	else
 	{
-		ft_printf("ERROR\n");
-		return ;//error
+		ft_putendl_fd("ERROR", 2);
+		dlstclear(&a);
+		return ;
 	}
 }
 
-static int	prepare_a(int len, char *argv[], t_dlist **a)
+static int	check_args(int len, char *argv[], t_dlist **a)
 {
 	unsigned int	i;
 	long long		n;
@@ -52,12 +54,20 @@ static int	prepare_a(int len, char *argv[], t_dlist **a)
 	{
 		n = to_int(argv[i]);
 		if (n == NOT_INT)
-		{
 			return (FAIL);
-		}
 		else
 		{
-			ft_dlstadd_back(a, ft_dlstnew((int)n));
+			if (*a != NULL)
+			{
+				while ((*a)->value != NULL)
+				{
+					if ((int)n == (*(*a)->value))
+						return (FAIL);
+					*a = (*a)->next;
+				}
+				*a = (*a)->next;
+			}
+			dlstadd_back(a, dlstnew((int)n));
 		}
 	}
 	return (SUCCESS);
@@ -89,11 +99,3 @@ static long long	to_int(const char *str)
 	}
 	return (number * sign);
 }
-
-// void	free_and_exit(int *stack)
-// {
-// 	ft_putendl_fd("Error", 2);
-// 	free(stack);
-// 	stack = NULL;
-// 	exit(1);
-// }
