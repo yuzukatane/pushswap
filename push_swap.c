@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/03 19:16:12 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/04 12:10:16 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,8 @@ void	push_swap(int argc, char *argv[])
 	flag = check_args(argc, argv, &a);
 	if (flag == SUCCESS)
 	{
-		while (a->value != NULL)
-		{
-			printf("%d\n", (*a->value));
-			a = a->next;
-		}
-
-		// a = a->prev->prev;
-		// while(a->value != NULL)
-		// {
-		// 	printf("%d\n", *(a->value));
-		// 	a = a->prev;
-		// }
+		set_index(argc - 1, &a);
+		printlst(&a, 1);
 	}
 	else
 	{
@@ -99,3 +89,53 @@ static long long	to_int(const char *str)
 	}
 	return (number * sign);
 }
+
+void	set_index(int len, t_dlist **a)
+{
+	t_dlist	*min;
+	int		index;
+
+	index = 0;
+	while (index < len)
+	{
+		while ((*a)->index != -1)
+			*a = (*a)->next;
+		min = *a;
+		*a = (*a)->next;
+		while ((*a)->value != NULL)
+		{
+			if (((*a)->index == -1) && (*(min->value) > *((*a)->value)))
+				min = *a;
+			*a = (*a)->next;
+		}
+		*a = (*a)->next;
+		min->index = index;
+		index++;
+	}
+}
+
+///////
+void	printlst(t_dlist **a, int n)
+{
+	switch (n)
+	{
+		case 1:
+			while ((*a)->value != NULL)
+			{
+				printf("%d (%d)\n", (*(*a)->value), (*a)->index);
+				*a = (*a)->next;
+			}
+			break ;
+		case 2:
+			*a = (*a)->prev->prev;
+			while((*a)->value != NULL)
+			{
+				printf("%d (%d)\n", (*(*a)->value), (*a)->index);
+				*a = (*a)->prev;
+			}
+			break ;
+		default:
+			break;
+	}
+}
+//////

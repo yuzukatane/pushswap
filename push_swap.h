@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/03 18:14:17 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/04 12:00:30 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ typedef struct s_dlist
 	struct s_dlist	*prev;
 }	t_dlist;
 
+void printlst(t_dlist **a, int n); ///いらない？
+
+
 void	push_swap(int argc, char *argv[]);
 static int	check_args(int len, char *argv[], t_dlist **a);
 static long long	to_int(const char *str);
+void	set_index(int len, t_dlist **a);
 
 void	dlstadd_back(t_dlist **lst, t_dlist *new);
 t_dlist	*dlstnew(int value);
-
 void	dlstclear(t_dlist **lst);
 void	dlstdelone(t_dlist *lst);
 
