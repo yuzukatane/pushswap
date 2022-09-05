@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/05 15:34:05 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/05 22:22:34 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,26 @@ void	push_swap(int argc, char *argv[])
 		printlst(&a, 1);
 		printf("\n");
 
-		swap(&a);
-		printf("after swap\n");
+		swap_rotate(&a, SWAP);
+		printf("swap\n");
 		printlst(&a, 1);
 		printf("\n");
 		
-		swap(&a);
-		printf("swap again\n");
-		printlst(&a, 1);
+		swap_rotate(&a, ROTATE);
+		printf("rotate\n");
+		printlst(&(a), 1);
+		printf("\n");
+
+		push(&b, &a);
+		printf("push\na\n");
+		printlst(&(a), 1);
+		printf("\nb\n");
+		printlst(&(b), 1);
 		printf("\n");
 		
-		swap_for_rotate(&(a->prev));
-		printf("after swap_for_rotate\n");
-		printlst(&(a->prev), 1);			///// &a だけでいけるはず？ なぜswap_for_rotateの中で先頭ポインタが移動してくれない？（swap関数)では移動したはず。
+		swap_rotate(&a, REVERSE_ROTATE);
+		printf("reverse rotate\n");
+		printlst(&(a), 1);
 		printf("\n");
 	}
 	else

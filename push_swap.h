@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/04 19:09:33 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/05 22:51:56 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define SUCCESS 1
 # define FAIL 0
 # define NOT_INT INT_MAX + 1ll
+# define ROTATE 0
+# define REVERSE_ROTATE 1
+# define SWAP 2
 
 typedef struct s_dlist
 {
@@ -45,8 +48,11 @@ t_dlist	*dlstempty(void);
 void	dlstclear(t_dlist **lst);
 void	dlstdelone(t_dlist *lst);
 
-void	swap(t_dlist **lst);
 void	push(t_dlist **dest, t_dlist **src);
-void	swap_for_rotate(t_dlist **lst);
+void	swap_rotate(t_dlist **lst, int flag);
+
+void	sa_sb(t_dlist **lst);
+void	ss(t_dlist **a, t_dlist **b);
+
 
 #endif
