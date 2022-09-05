@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/04 12:00:30 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/04 19:09:33 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ void	set_index(int len, t_dlist **a);
 
 void	dlstadd_back(t_dlist **lst, t_dlist *new);
 t_dlist	*dlstnew(int value);
+t_dlist	*dlstempty(void);
 void	dlstclear(t_dlist **lst);
 void	dlstdelone(t_dlist *lst);
+
+void	swap(t_dlist **lst);
+void	push(t_dlist **dest, t_dlist **src);
+void	swap_for_rotate(t_dlist **lst);
 
 #endif

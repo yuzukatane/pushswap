@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/04 12:10:16 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/05 15:34:05 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,34 @@
 void	push_swap(int argc, char *argv[])
 {
 	t_dlist	*a;
+	t_dlist	*b;
 	int		flag;
 
 	if (argc == 1)
 		return ;
 	a = NULL;
+	b = dlstempty();
 	flag = check_args(argc, argv, &a);
 	if (flag == SUCCESS)
 	{
 		set_index(argc - 1, &a);
 		printlst(&a, 1);
+		printf("\n");
+
+		swap(&a);
+		printf("after swap\n");
+		printlst(&a, 1);
+		printf("\n");
+		
+		swap(&a);
+		printf("swap again\n");
+		printlst(&a, 1);
+		printf("\n");
+		
+		swap_for_rotate(&(a->prev));
+		printf("after swap_for_rotate\n");
+		printlst(&(a->prev), 1);			///// &a だけでいけるはず？ なぜswap_for_rotateの中で先頭ポインタが移動してくれない？（swap関数)では移動したはず。
+		printf("\n");
 	}
 	else
 	{
@@ -125,6 +143,7 @@ void	printlst(t_dlist **a, int n)
 				printf("%d (%d)\n", (*(*a)->value), (*a)->index);
 				*a = (*a)->next;
 			}
+			*a = (*a)->next;
 			break ;
 		case 2:
 			*a = (*a)->prev->prev;
@@ -133,6 +152,7 @@ void	printlst(t_dlist **a, int n)
 				printf("%d (%d)\n", (*(*a)->value), (*a)->index);
 				*a = (*a)->prev;
 			}
+			*a = (*a)->next;
 			break ;
 		default:
 			break;

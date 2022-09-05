@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 16:34:05 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/03 19:14:44 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/04 19:00:10 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	dlstadd_back(t_dlist **lst, t_dlist *new)
 
 	if (*lst == NULL)
 	{
-		last = dlstnew(0);
-		last->value = NULL;
+		last = dlstempty();
 		*lst = new;
 		(*lst)->next = last;
 		(*lst)->prev = last;
@@ -50,6 +49,21 @@ t_dlist	*dlstnew(int value)
 	new->prev = new;
 	new->index = -1;
 	return (new);
+}
+
+t_dlist	*dlstempty(void)
+{
+	t_dlist	*empty;
+
+	empty = malloc(sizeof(t_dlist));
+	if (empty == NULL)
+		return (NULL);
+	
+	empty->value = NULL;
+	empty->next = empty;
+	empty->prev = empty;
+	empty->index = -1;
+	return (empty);
 }
 
 void	dlstclear(t_dlist **lst)
