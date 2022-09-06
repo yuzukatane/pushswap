@@ -1,7 +1,7 @@
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 CC = gcc
-SRCS = main.c push_swap.c utils.c base.c operations01.c operations02.c operations03.c 
+SRCS = main.c push_swap.c list.c operations01.c operations02.c algorithme.c
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 

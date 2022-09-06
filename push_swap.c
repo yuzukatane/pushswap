@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/05 22:22:34 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/06 19:32:25 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,24 @@ void	push_swap(int argc, char *argv[])
 {
 	t_dlist	*a;
 	t_dlist	*b;
+	int		len;
 	int		flag;
 
 	if (argc == 1)
 		return ;
 	a = NULL;
 	b = dlstempty();
+	len = argc - 1;
 	flag = check_args(argc, argv, &a);
 	if (flag == SUCCESS)
 	{
-		set_index(argc - 1, &a);
+		set_index(len, &a);
+		// printlst(&a, 1);
+		// printf("\n");
+		solution(len, &a, &b);
 		printlst(&a, 1);
 		printf("\n");
-
-		swap_rotate(&a, SWAP);
-		printf("swap\n");
-		printlst(&a, 1);
-		printf("\n");
-		
-		swap_rotate(&a, ROTATE);
-		printf("rotate\n");
-		printlst(&(a), 1);
-		printf("\n");
-
-		push(&b, &a);
-		printf("push\na\n");
-		printlst(&(a), 1);
-		printf("\nb\n");
-		printlst(&(b), 1);
-		printf("\n");
-		
-		swap_rotate(&a, REVERSE_ROTATE);
-		printf("reverse rotate\n");
-		printlst(&(a), 1);
-		printf("\n");
+		printlst(&b, 1);
 	}
 	else
 	{
@@ -108,7 +92,8 @@ static long long	to_int(const char *str)
 			return (NOT_INT);
 		number *= 10;
 		number += (*str - '0');
-		if (number < INT_MIN || INT_MAX < number)
+
+		if (!(number == INT_MAX + 1ll && sign == -1) && (INT_MAX < number))
 			return (NOT_INT);
 		str++;
 	}

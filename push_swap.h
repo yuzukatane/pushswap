@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/05 22:51:56 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/06 20:48:14 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,16 @@ t_dlist	*dlstempty(void);
 void	dlstclear(t_dlist **lst);
 void	dlstdelone(t_dlist *lst);
 
-void	push(t_dlist **dest, t_dlist **src);
+void	pa_pb(t_dlist **dest, t_dlist **src);
 void	swap_rotate(t_dlist **lst, int flag);
 
 void	sa_sb(t_dlist **lst);
 void	ss(t_dlist **a, t_dlist **b);
+void	ra_rb(t_dlist **lst);
+void	rr(t_dlist **a, t_dlist **b);
+void	rra_rrb(t_dlist **lst);
+void	rrr(t_dlist **a, t_dlist **b);
 
-
+void	solution(int len, t_dlist **a, t_dlist **b);
+void	send_half(int len, t_dlist **src, t_dlist **dst);
 #endif
