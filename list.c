@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:21:21 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/06 11:21:24 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/07 15:05:51 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_dlist	*dlstnew(int value)
 	new->next = new;
 	new->prev = new;
 	new->index = -1;
+	new->label = 0;
 	return (new);
 }
 

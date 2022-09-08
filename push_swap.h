@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/06 20:48:14 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/08 12:26:25 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@
 # define ROTATE 0
 # define REVERSE_ROTATE 1
 # define SWAP 2
+# define SORTED -1
 
 typedef struct s_dlist
 {
 	int				*value;
 	int				index;
+	int				label;
 	struct s_dlist	*next;
 	struct s_dlist	*prev;
 }	t_dlist;
@@ -48,7 +50,7 @@ t_dlist	*dlstempty(void);
 void	dlstclear(t_dlist **lst);
 void	dlstdelone(t_dlist *lst);
 
-void	pa_pb(t_dlist **dest, t_dlist **src);
+void	pa_pb(t_dlist **dst, t_dlist **src);
 void	swap_rotate(t_dlist **lst, int flag);
 
 void	sa_sb(t_dlist **lst);
@@ -59,5 +61,14 @@ void	rra_rrb(t_dlist **lst);
 void	rrr(t_dlist **a, t_dlist **b);
 
 void	solution(int len, t_dlist **a, t_dlist **b);
-void	send_half(int len, t_dlist **src, t_dlist **dst);
+void	find_three(int len, t_dlist **a, t_dlist **b);
+int		send_half(int len, t_dlist **dst, t_dlist **src, int flag);
+void	sort_three(t_dlist **lst);
+void	sort_two(t_dlist **lst);
+void	sort_three_reverse(t_dlist **lst);
+void	sort_two_reverse(t_dlist **lst);
+int		send_half_small(int len, t_dlist **dst, t_dlist **src);
+int		send_half_large(int len, t_dlist **dst, t_dlist **src);
+void	sort_up_to_six(int len, t_dlist **a, t_dlist **b);
+
 #endif

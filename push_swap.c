@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/06 19:32:25 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/08 12:43:33 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	push_swap(int argc, char *argv[])
 	int		len;
 	int		flag;
 
-	if (argc == 1)
+	if (argc == 2)
 		return ;
 	a = NULL;
 	b = dlstempty();
@@ -28,19 +28,16 @@ void	push_swap(int argc, char *argv[])
 	if (flag == SUCCESS)
 	{
 		set_index(len, &a);
-		// printlst(&a, 1);
-		// printf("\n");
-		solution(len, &a, &b);
 		printlst(&a, 1);
 		printf("\n");
-		printlst(&b, 1);
+
+		solution(len, &a, &b);
+		printlst(&a, 1);
 	}
 	else
-	{
 		ft_putendl_fd("ERROR", 2);
-		dlstclear(&a);
-		return ;
-	}
+	dlstclear(&a);
+	dlstclear(&b);
 }
 
 static int	check_args(int len, char *argv[], t_dlist **a)
@@ -132,7 +129,7 @@ void	printlst(t_dlist **a, int n)
 		case 1:
 			while ((*a)->value != NULL)
 			{
-				printf("%d (%d)\n", (*(*a)->value), (*a)->index);
+				printf("%d (%d) (%d)\n", (*(*a)->value), (*a)->index, (*a)->label);
 				*a = (*a)->next;
 			}
 			*a = (*a)->next;
