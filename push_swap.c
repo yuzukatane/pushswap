@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/08 12:43:33 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/10 17:46:55 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	push_swap(int argc, char *argv[])
 	int		len;
 	int		flag;
 
-	if (argc == 2)
+	if (argc == 1)
 		return ;
 	a = NULL;
 	b = dlstempty();
@@ -28,15 +28,16 @@ void	push_swap(int argc, char *argv[])
 	if (flag == SUCCESS)
 	{
 		set_index(len, &a);
-		printlst(&a, 1);
-		printf("\n");
+		// printlst(&a, 1);
+		// printf("\n");
 
 		solution(len, &a, &b);
-		printlst(&a, 1);
+
+		// printlst(&a, 1);
 	}
 	else
 		ft_putendl_fd("ERROR", 2);
-	dlstclear(&a);
+	// dlstclear(&a);
 	dlstclear(&b);
 }
 

@@ -6,16 +6,11 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:14:09 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/08 12:43:11 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/10 14:17:02 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-
-////////////////////////////
-//2,3,5の時、初めから揃ってる時
-////////////////////////////
 
 
 void	solution(int len, t_dlist **a, t_dlist **b)
@@ -23,10 +18,10 @@ void	solution(int len, t_dlist **a, t_dlist **b)
 	int	limit;
 	int	label;
 
+	if (is_sorted(a) == SUCCESS)
+		return ;
 	if (len <= 6)
-	{
 		sort_up_to_six(len, a, b);
-	}
 	else
 	{
 		limit = send_half_small(len, b, a);
@@ -34,27 +29,14 @@ void	solution(int len, t_dlist **a, t_dlist **b)
 		while (label != SORTED)
 		{
 			find_three(limit, a, b);
-			
-			// printf("a: \n");
-			// printlst(a, 1);
-			// printf("\n");
-			// printf("b: \n");
-			// printlst(b, 1);
-			// printf("\n");
 			label = (*a)->label;
 			limit = 0;
-			// printf("label = %d\n", label);
 			while (label != SORTED && label == (*a)->label)
 			{
 				pa_pb(b, a);
+				ft_printf("pb\n");
 				limit++;
 			}
-			// printf("a: \n");
-			// printlst(a, 1);
-			// printf("\n");
-			// printf("b: \n");
-			// printlst(b, 1);
-			// printf("\n");
 		}
 	}
 }
@@ -66,25 +48,19 @@ void	find_three(int len, t_dlist **a, t_dlist **b)
 	j = 0;
 	if (len <= 3)
 	{
-		sort_three(b);
+		sort_three(b, 'b');
 		while (j < len)
 		{
 			pa_pb(a, b);
+			ft_printf("pa\n");
 			ra_rb(a);
+			ft_printf("ra\n");
 			j++;
 		}
 		return ;
 	}
 
 	len = send_half_large(len, a, b);
-
-	// printf("a: \n");
-	// printlst(a, 1);
-	// printf("\n");
-	// printf("b: \n");
-	// printlst(b, 1);
-	// printf("\n");
-	
 	find_three(len, a, b);
 }
 
@@ -107,10 +83,14 @@ int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 			if (3 < median)
 				(*src)->label++;
 			pa_pb(dst, src);
+			ft_printf("pa\n");
 			i++;
 		}
 		else
+		{
 			ra_rb(src);
+			ft_printf("rb\n");
+		}
 	}
 	return (median);
 }
@@ -128,10 +108,14 @@ int	send_half_small(int len, t_dlist **dst, t_dlist **src)
 		{
 			(*src)->label = 1;
 			pa_pb(dst, src);
+			ft_printf("pb\n");
 			i++;
 		}
 		else
+		{
 			ra_rb(src);
+			ft_printf("ra\n");
+		}
 	}
 	return (median);
 }
@@ -187,97 +171,22 @@ int	send_half_small(int len, t_dlist **dst, t_dlist **src)
 // 	printf("counter = %d\n", counter);
 // }
 
-void	sort_three(t_dlist **lst)
+
+int	is_sorted(t_dlist **lst)
 {
-	if ((*lst)->next->next->value == NULL)
-		sort_two(lst);
-	else if (*((*lst)->next->value) < *((*lst)->value) && *((*lst)->value) < *((*lst)->next->next->value))
-		sa_sb(lst);
-	else if (*((*lst)->next->next->value) < *((*lst)->next->value) && *((*lst)->next->value) < *((*lst)->value))
+	t_dlist	*head;
+
+	head = *lst;
+
+	while ((*lst)->next->value != NULL)
 	{
-		sa_sb(lst);
-		rra_rrb(lst);
-	}
-	else if (*((*lst)->next->value) < *((*lst)->next->next->value) && *((*lst)->next->next->value) < *((*lst)->value))
-		ra_rb(lst);
-	else if (*((*lst)->value) < *((*lst)->next->next->value) && *((*lst)->next->next->value) < *((*lst)->next->value))
-	{
-		sa_sb(lst);
-		ra_rb(lst);
-	}
-	else if (*((*lst)->next->next->value) < *((*lst)->value) && *((*lst)->value) < *((*lst)->next->value))
-		rra_rrb(lst);
-	(*lst)->label = SORTED;
-	(*lst)->next->label = SORTED;
-	(*lst)->next->next->label = SORTED;
-}
-
-void	sort_two(t_dlist **lst)
-{
-	if ((*lst)->value == NULL || (*lst)->next->value == NULL)
-		return ;
-	//いらない？	
-	else if (*((*lst)->value) > *((*lst)->next->value))
-		sa_sb(lst);
-	(*lst)->label = SORTED;
-	(*lst)->next->label = SORTED;
-}
-
-void	sort_three_reverse(t_dlist **lst)
-{
-	if ((*lst)->next->next->value == NULL)
-		sort_two_reverse(lst);
-	else if (*((*lst)->next->value) > *((*lst)->value) && *((*lst)->value) > *((*lst)->next->next->value))
-		sa_sb(lst);
-	else if (*((*lst)->next->next->value) > *((*lst)->next->value) && *((*lst)->next->value) > *((*lst)->value))
-	{
-		sa_sb(lst);
-		rra_rrb(lst);
-	}
-	else if (*((*lst)->next->value) > *((*lst)->next->next->value) && *((*lst)->next->next->value) > *((*lst)->value))
-		ra_rb(lst);
-	else if (*((*lst)->value) > *((*lst)->next->next->value) && *((*lst)->next->next->value) > *((*lst)->next->value))
-	{
-		sa_sb(lst);
-		ra_rb(lst);
-	}
-	else if (*((*lst)->next->next->value) > *((*lst)->value) && *((*lst)->value) > *((*lst)->next->value))
-		rra_rrb(lst);
-	(*lst)->label = SORTED;
-	(*lst)->next->label = SORTED;
-	(*lst)->next->next->label = SORTED;
-}
-
-void	sort_two_reverse(t_dlist **lst)
-{
-	if ((*lst)->value == NULL || (*lst)->next->value == NULL)
-		return ;
-	//いらない？	
-	else if (*((*lst)->value) < *((*lst)->next->value))
-		sa_sb(lst);
-	(*lst)->label = SORTED;
-	(*lst)->next->label = SORTED;
-}
-
-void	sort_up_to_six(int len, t_dlist **a, t_dlist **b)
-{
-	int	i;
-
-	if (len <= 3)
-		sort_three(a);
-	else
-	{
-
-		send_half_small(len, b, a);
-		sort_three(a);
-		sort_three_reverse(b);
-		
-		i = 0;
-		while (i < ((len / 2) + (len % 2)))
+		if (((*lst)->index + 1  !=  (*lst)->next->index))
 		{
-			pa_pb(a, b);
-			i++;
+			*lst = head;
+			return (FAIL);
 		}
-
+		*lst = (*lst)->next;
 	}
+	*lst = head;
+	return (SUCCESS);
 }

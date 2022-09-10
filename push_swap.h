@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/08 12:26:25 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/10 13:59:55 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define REVERSE_ROTATE 1
 # define SWAP 2
 # define SORTED -1
+
 
 typedef struct s_dlist
 {
@@ -63,12 +64,13 @@ void	rrr(t_dlist **a, t_dlist **b);
 void	solution(int len, t_dlist **a, t_dlist **b);
 void	find_three(int len, t_dlist **a, t_dlist **b);
 int		send_half(int len, t_dlist **dst, t_dlist **src, int flag);
-void	sort_three(t_dlist **lst);
-void	sort_two(t_dlist **lst);
-void	sort_three_reverse(t_dlist **lst);
-void	sort_two_reverse(t_dlist **lst);
+void	sort_three(t_dlist **lst, char stack);
+void	sort_two(t_dlist **lst, char stack);
+void	sort_three_reverse(t_dlist **lst, char stack);
+void	sort_two_reverse(t_dlist **lst, char stack);
 int		send_half_small(int len, t_dlist **dst, t_dlist **src);
 int		send_half_large(int len, t_dlist **dst, t_dlist **src);
 void	sort_up_to_six(int len, t_dlist **a, t_dlist **b);
+int		is_sorted(t_dlist **lst);
 
 #endif
