@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:14:09 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/13 12:06:11 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/13 16:45:57 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,21 @@ void	solution(int len, t_dlist **a, t_dlist **b)
 		while (label != SORTED)
 		{
 			find_three(limit, a, b);
-			while ((*a)->index == ((*a)->prev->prev->index + 1))
+			while (1)
 			{
-				(*a)->label = SORTED;
-				ra_rb(a);
-				ft_printf("ra\n");
+				while ((*a)->index == ((*a)->prev->prev->index + 1))
+				{
+					(*a)->label = SORTED;
+					ra_rb(a);
+					ft_printf("ra\n");
+				}
+				if ((*a)->next->index ==((*a)->prev->prev->index + 1) && (*a)->index == ((*a)->next->index + 1))
+				{
+					sa_sb(a);
+					ft_printf("sa\n");
+				}
+				else
+					break ;
 			}
 			label = (*a)->label;
 			limit = 0;
