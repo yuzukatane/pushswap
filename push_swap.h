@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/10 13:59:55 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/12 21:40:57 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # define REVERSE_ROTATE 1
 # define SWAP 2
 # define SORTED -1
-
+# define TOP 0
+# define BOTTOM 1
 
 typedef struct s_dlist
 {
@@ -46,6 +47,7 @@ static long long	to_int(const char *str);
 void	set_index(int len, t_dlist **a);
 
 void	dlstadd_back(t_dlist **lst, t_dlist *new);
+void	dlstadd_front(t_dlist **lst, t_dlist *new);
 t_dlist	*dlstnew(int value);
 t_dlist	*dlstempty(void);
 void	dlstclear(t_dlist **lst);
@@ -72,5 +74,7 @@ int		send_half_small(int len, t_dlist **dst, t_dlist **src);
 int		send_half_large(int len, t_dlist **dst, t_dlist **src);
 void	sort_up_to_six(int len, t_dlist **a, t_dlist **b);
 int		is_sorted(t_dlist **lst);
+
+int	top_or_bottom(t_dlist **lst, int median);
 
 #endif

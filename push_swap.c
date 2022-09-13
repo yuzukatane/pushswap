@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/10 17:46:55 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/13 11:46:47 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	push_swap(int argc, char *argv[])
 
 	if (argc == 1)
 		return ;
-	a = NULL;
+	a = dlstempty();
 	b = dlstempty();
 	len = argc - 1;
 	flag = check_args(argc, argv, &a);
@@ -37,7 +37,7 @@ void	push_swap(int argc, char *argv[])
 	}
 	else
 		ft_putendl_fd("ERROR", 2);
-	// dlstclear(&a);
+	dlstclear(&a);
 	dlstclear(&b);
 }
 
@@ -54,7 +54,9 @@ static int	check_args(int len, char *argv[], t_dlist **a)
 			return (FAIL);
 		else
 		{
-			if (*a != NULL)
+			if (i == 1)
+				dlstadd_front(a, dlstnew((int)n));
+			else
 			{
 				while ((*a)->value != NULL)
 				{
@@ -63,8 +65,8 @@ static int	check_args(int len, char *argv[], t_dlist **a)
 					*a = (*a)->next;
 				}
 				*a = (*a)->next;
+				dlstadd_back(a, dlstnew((int)n));
 			}
-			dlstadd_back(a, dlstnew((int)n));
 		}
 	}
 	return (SUCCESS);

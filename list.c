@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:21:21 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/07 15:05:51 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/13 11:36:53 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ void	dlstadd_back(t_dlist **lst, t_dlist *new)
 		new->next = (*lst)->prev;
 	}
 }
+
+void	dlstadd_front(t_dlist **lst, t_dlist *new)
+{
+	if (lst && new)
+	{
+		new->next = *lst;
+		new->prev = *lst;
+		(*lst)->next = new;
+		(*lst)->prev = new;
+		
+		*lst = new;
+	}
+}
+
 
 t_dlist	*dlstnew(int value)
 {
@@ -64,6 +78,7 @@ t_dlist	*dlstempty(void)
 	empty->next = empty;
 	empty->prev = empty;
 	empty->index = -1;
+	empty->label = -1;
 	return (empty);
 }
 

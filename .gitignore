@@ -1,4 +1,7 @@
 *.o
 a.out
 push_swap
-checker_Mac
+checker
+push_swap_tester
+push_swap_visualizer
+imgui.ini

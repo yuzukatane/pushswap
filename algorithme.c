@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:14:09 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/10 14:17:02 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/13 12:06:11 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	solution(int len, t_dlist **a, t_dlist **b)
 		while (label != SORTED)
 		{
 			find_three(limit, a, b);
+			while ((*a)->index == ((*a)->prev->prev->index + 1))
+			{
+				(*a)->label = SORTED;
+				ra_rb(a);
+				ft_printf("ra\n");
+			}
 			label = (*a)->label;
 			limit = 0;
 			while (label != SORTED && label == (*a)->label)
@@ -74,14 +80,18 @@ int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 		first_index = 0;
 	else if ((*dst)->prev->prev->label == -1)
 		first_index = (*dst)->prev->prev->index + 1;
+	while ((*src)->value != NULL)
+	{
+		(*src)->label++;
+		*src = (*src)->next;
+	}
+	*src = (*src)->next;
 	median = (len % 2) + (len / 2);
 	i = 0;
 	while ((median + i) < len)
 	{
 		if ((*src)->index >= (median + first_index))
 		{
-			if (3 < median)
-				(*src)->label++;
 			pa_pb(dst, src);
 			ft_printf("pa\n");
 			i++;
@@ -106,7 +116,6 @@ int	send_half_small(int len, t_dlist **dst, t_dlist **src)
 	{
 		if ((*src)->index < median)
 		{
-			(*src)->label = 1;
 			pa_pb(dst, src);
 			ft_printf("pb\n");
 			i++;
@@ -119,58 +128,74 @@ int	send_half_small(int len, t_dlist **dst, t_dlist **src)
 	}
 	return (median);
 }
+/*
+int	send_half_small(int len, t_dlist **dst, t_dlist **src)
+{
+	int	median;
+	int	i;
+	int	flag;
 
-// void	solution(int len, t_dlist **a, t_dlist **b)
-// {
-// 	int	median;
-// 	int	nb;
-// 	int counter = 0;
-// 	t_dlist *first;
-// 	t_dlist *second;
-// 	int		index_first;
-// 	int		index_second;
-// 	median = (len % 2) + (len / 2);
-// 	nb = 0;
-// 	while (nb < median)
-// 	{
-// 		first = *a;
-// 		second = (*a)->prev->prev;
-// 		index_first = 0;
-// 		index_second = 0;
-// 		while (first->index >= median)
-// 		{
-// 			first = first->next;
-// 			index_first++;
-// 		}
-// 		while (second->index >= median)
-// 		{
-// 			second = second->next;
-// 			index_second++;
-// 		}
-// 		if (index_first <= index_second)
-// 		{
-// 			while ((*a)->index >= median)
-// 			{
-// 				ra_rb(a);
-// 				counter++;
-// 			}
-// 			pa_pb(b, a);
-// 			nb++;
-// 		}
-// 		else
-// 		{
-// 			while ((*a)->index >= median)
-// 			{
-// 				rra_rrb(a);
-// 				counter++;
-// 			}
-// 			pa_pb(b, a);
-// 			nb++;
-// 		}
-// 	}
-// 	printf("counter = %d\n", counter);
-// }
+	median = (len % 2) + (len / 2);
+	i = 0;
+	while (i < median)
+	{
+		if ((*src)->index < median)
+		{
+			pa_pb(dst, src);
+			ft_printf("pb\n");
+			i++;
+		}
+		else
+		{
+			flag = top_or_bottom(src, median);
+			//無限ループになってる！下の行、関数書くまえはifではなくelse で書いてた
+			if (flag == TOP)
+			{
+				while ((*src)->index >= median)
+				{
+					ra_rb(src);
+					ft_printf("ra\n");
+				}
+			}
+			else if (flag == BOTTOM)
+			{
+				while ((*src)->index >= median)
+				{
+					rra_rrb(src);
+					ft_printf("rra\n");
+				}
+			}
+		}
+	}
+	return (median);
+}
 
+int	top_or_bottom(t_dlist **lst, int median)
+{
+	t_dlist *top;
+	t_dlist *bottom;
+	int		index_top;
+	int		index_bottom;
+
+	top = *lst;
+	bottom = (*lst)->prev->prev;
+	index_top = 0;
+	index_bottom = 0;
+	while (top->index >= median)
+	{
+		top = top->next;
+		index_top++;
+	}
+	while (bottom->index >= median)
+	{
+		bottom = bottom->next;
+		index_bottom++;
+	}
+	if (top->index < bottom->index)
+		return (TOP);
+	return (BOTTOM);
+}
+*/
 
 int	is_sorted(t_dlist **lst)
 {
