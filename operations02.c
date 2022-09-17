@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:47:52 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/13 11:28:40 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/16 21:13:51 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ void	rrr(t_dlist **a, t_dlist **b)
 
 void	swap_rotate(t_dlist **lst, int flag)
 {
-	t_dlist	*head;
-	t_dlist	*tail;
-	t_dlist	*tmp;
-
 	if (flag == ROTATE)
 		*lst = (*lst)->prev;
 	else if (flag == REVERSE_ROTATE)

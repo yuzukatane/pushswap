@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/08 21:03:08 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/17 16:06:43 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@
 int main(int argc, char *argv[])
 {
 	push_swap(argc, argv);
-	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:14:09 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/13 16:45:57 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/17 17:53:35 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	solution(int len, t_dlist **a, t_dlist **b)
 void	find_three(int len, t_dlist **a, t_dlist **b)
 {
 	int	j;
+	int	label;
 
 	j = 0;
 	if (len <= 3)
@@ -75,7 +76,13 @@ void	find_three(int len, t_dlist **a, t_dlist **b)
 		}
 		return ;
 	}
-
+	label = (*a)->label + 1;
+	while ((*b)->value != NULL)
+	{
+		(*b)->label = label;
+		*b = (*b)->next;
+	}
+	*b = (*b)->next;
 	len = send_half_large(len, a, b);
 	find_three(len, a, b);
 }
@@ -90,12 +97,6 @@ int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 		first_index = 0;
 	else if ((*dst)->prev->prev->label == -1)
 		first_index = (*dst)->prev->prev->index + 1;
-	while ((*src)->value != NULL)
-	{
-		(*src)->label++;
-		*src = (*src)->next;
-	}
-	*src = (*src)->next;
 	median = (len % 2) + (len / 2);
 	i = 0;
 	while ((median + i) < len)
@@ -104,6 +105,8 @@ int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 		{
 			pa_pb(dst, src);
 			ft_printf("pa\n");
+			if ((median / 2) > 1)
+				small_or_large(((median / 2) + first_index + median), dst);
 			i++;
 		}
 		else
@@ -112,7 +115,26 @@ int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 			ft_printf("rb\n");
 		}
 	}
+	i = 0;
+
+	if ((median / 2) > 1)
+		while (i < (median / 2))
+		{
+			rra_rrb(dst);
+			ft_printf("rra\n");
+			i++;
+		}
 	return (median);
+}
+
+void	small_or_large(int median, t_dlist **lst)
+{
+	if ((*lst)->index < median)
+	{
+		(*lst)->label++;
+		ra_rb(lst);
+		ft_printf("ra\n");
+	}
 }
 
 int	send_half_small(int len, t_dlist **dst, t_dlist **src)

@@ -2,15 +2,17 @@ NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 SRCS = main.c push_swap.c list.c operations01.c operations02.c algorithme.c sort.c
+OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME): $(SRCS) $(LIBFT)
-	$(CC) $(SRCS) $(LIBFT) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 clean:
+	rm $(OBJS)
 	make -C $(LIBFT_DIR) clean
 
 fclean: clean

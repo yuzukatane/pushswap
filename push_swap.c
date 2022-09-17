@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:38 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/13 11:46:47 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/17 17:33:33 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@ void	push_swap(int argc, char *argv[])
 	t_dlist	*b;
 	int		len;
 	int		flag;
+	// t_buf	*buffer;
 
 	if (argc == 1)
 		return ;
+	// buffer = malloc(sizeof(t_buf));
+	// if (buffer == NULL)
+		// return ;
+	// buffer->index = 0;
 	a = dlstempty();
 	b = dlstempty();
 	len = argc - 1;
-	flag = check_args(argc, argv, &a);
+	flag = check_args(len, argv, &a);
 	if (flag == SUCCESS)
 	{
 		set_index(len, &a);
@@ -39,15 +44,16 @@ void	push_swap(int argc, char *argv[])
 		ft_putendl_fd("ERROR", 2);
 	dlstclear(&a);
 	dlstclear(&b);
+	// free(buffer);
 }
 
-static int	check_args(int len, char *argv[], t_dlist **a)
+int	check_args(int len, char *argv[], t_dlist **a)
 {
-	unsigned int	i;
-	long long		n;
+	long long	i;
+	long long	n;
 
-	i = 0;
-	while (++i < len)
+	i = 1;
+	while (i <= len)
 	{
 		n = to_int(argv[i]);
 		if (n == NOT_INT)
@@ -68,11 +74,12 @@ static int	check_args(int len, char *argv[], t_dlist **a)
 				dlstadd_back(a, dlstnew((int)n));
 			}
 		}
+		i++;
 	}
 	return (SUCCESS);
 }
 
-static long long	to_int(const char *str)
+long long	to_int(const char *str)
 {
 	long long	number;
 	int			sign;
@@ -85,6 +92,8 @@ static long long	to_int(const char *str)
 		sign = -1;
 		str++;
 	}
+	if (*str == '\0')
+		return (NOT_INT);
 	number = 0;
 	while (*str != '\0')
 	{
