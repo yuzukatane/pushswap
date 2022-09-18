@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:08:35 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/17 17:23:49 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/18 14:44:46 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ int		is_sorted(t_dlist **lst);
 
 // int		top_or_bottom(t_dlist **lst, int median);
 void	small_or_large(int median, t_dlist **lst);
+void	rotate_to_sort(t_dlist **a);
+void	is_larger(int len, int median, t_dlist **dst, t_dlist**src);
 
 #endif
