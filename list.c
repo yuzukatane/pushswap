@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:21:21 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/17 17:38:08 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/18 15:39:43 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	dlstadd_front(t_dlist **lst, t_dlist *new)
 		new->prev = *lst;
 		(*lst)->next = new;
 		(*lst)->prev = new;
-		
 		*lst = new;
 	}
 }
@@ -72,7 +71,6 @@ t_dlist	*dlstempty(void)
 	empty = malloc(sizeof(t_dlist));
 	if (empty == NULL)
 		return (NULL);
-	
 	empty->value = NULL;
 	empty->next = empty;
 	empty->prev = empty;
@@ -94,9 +92,6 @@ void	dlstclear(t_dlist **lst)
 	}
 	free(*lst);
 }
-
-
-
 
 // int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 // {

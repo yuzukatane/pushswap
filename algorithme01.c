@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithme.c                                       :+:      :+:    :+:   */
+/*   algorithme01.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 16:14:09 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/18 14:50:09 by kyuzu            ###   ########.fr       */
+/*   Created: 2022/09/18 15:26:21 by kyuzu             #+#    #+#             */
+/*   Updated: 2022/09/18 15:38:24 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	solution(int len, t_dlist **a, t_dlist **b)
 			limit = 0;
 			while (label != SORTED && label == (*a)->label)
 			{
-				pa_pb(b, a);
-				ft_printf("pb\n");
+				pa_pb(b, a, 'b');
 				limit++;
 			}
 		}
@@ -48,15 +47,11 @@ void	rotate_to_sort(t_dlist **a)
 		while ((*a)->index == ((*a)->prev->prev->index + 1))
 		{
 			(*a)->label = SORTED;
-			ra_rb(a);
-			ft_printf("ra\n");
+			ra_rb(a, 'a');
 		}
 		if ((*a)->next->index == ((*a)->prev->prev->index + 1)
 			&& (*a)->index == ((*a)->next->index + 1))
-		{
-			sa_sb(a);
-			ft_printf("sa\n");
-		}
+			sa_sb(a, 'a');
 		else
 			break ;
 	}
@@ -73,10 +68,8 @@ void	find_three(int len, t_dlist **a, t_dlist **b)
 		j = -1;
 		while (++j < len)
 		{
-			pa_pb(a, b);
-			ft_printf("pa\n");
-			ra_rb(a);
-			ft_printf("ra\n");
+			pa_pb(a, b, 'a');
+			ra_rb(a, 'a');
 		}
 		return ;
 	}
@@ -103,8 +96,7 @@ int	send_half_large(int len, t_dlist **dst, t_dlist **src)
 	{
 		while (i < (median / 2))
 		{
-			rra_rrb(dst);
-			ft_printf("rra\n");
+			rra_rrb(dst, 'a');
 			i++;
 		}
 	}
@@ -125,53 +117,20 @@ void	is_larger(int len, int median, t_dlist **dst, t_dlist**src)
 	{
 		if ((*src)->index >= (median + first_index))
 		{
-			pa_pb(dst, src);
-			ft_printf("pa\n");
-			if ((median / 2) > 1)
-				small_or_large(((median / 2) + first_index + median), dst);
+			pa_pb(dst, src, 'a');
+			if (((median / 2) > 1)
+				&& ((*dst)->index < ((median / 2) + first_index + median)))
+			{
+				(*dst)->label++;
+				ra_rb(dst, 'a');
+			}
 			i++;
 		}
 		else
-		{
-			ra_rb(src);
-			ft_printf("rb\n");
-		}
+			ra_rb(src, 'b');
 	}
 }
 
-void	small_or_large(int median, t_dlist **lst)
-{
-	if ((*lst)->index < median)
-	{
-		(*lst)->label++;
-		ra_rb(lst);
-		ft_printf("ra\n");
-	}
-}
-
-int	send_half_small(int len, t_dlist **dst, t_dlist **src)
-{
-	int	median;
-	int	i;
-
-	median = (len % 2) + (len / 2);
-	i = 0;
-	while (i < median)
-	{
-		if ((*src)->index < median)
-		{
-			pa_pb(dst, src);
-			ft_printf("pb\n");
-			i++;
-		}
-		else
-		{
-			ra_rb(src);
-			ft_printf("ra\n");
-		}
-	}
-	return (median);
-}
 /*
 int	send_half_small(int len, t_dlist **dst, t_dlist **src)
 {
@@ -240,21 +199,3 @@ int	top_or_bottom(t_dlist **lst, int median)
 	return (BOTTOM);
 }
 */
-
-int	is_sorted(t_dlist **lst)
-{
-	t_dlist	*head;
-
-	head = *lst;
-	while ((*lst)->next->value != NULL)
-	{
-		if (((*lst)->index + 1 != (*lst)->next->index))
-		{
-			*lst = head;
-			return (FAIL);
-		}
-		*lst = (*lst)->next;
-	}
-	*lst = head;
-	return (SUCCESS);
-}
