@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 10:18:29 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:03:00 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/19 13:55:42 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return ((int)len);
 }
-

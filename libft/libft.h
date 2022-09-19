@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:45:23 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/06/23 10:17:07 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/09/19 13:57:28 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-int		ft_printf(const char *format, ...) __attribute__((format(printf, 1, 2)));
+int		ft_printf(const char *format, ...)
+		__attribute__((format(printf, 1, 2)));
 int		ft_putnbr_base(long long n, char *base);
 int		ft_putchar(char c);
 int		ft_putnbr_ull(unsigned long long n);
